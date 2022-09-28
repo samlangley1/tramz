@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+
+# Instabot files
+.config/
+.images/*
+config.py

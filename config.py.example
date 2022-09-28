@@ -1,0 +1,9 @@
+Create a new file in the root directory named "config.py" and fill it with the below values. Replace the string with the appropriate details.
+
+username = "myaccount"
+password = "mypassword"
+post_caption = '''Comment "WOW" to affirm this message!
+
+-----
+
+#travel #leisure #vacation'''

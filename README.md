@@ -1,6 +1,6 @@
 
 <!-- PROJECT LOGO -->
-<h3 align="center">project_title</h3>
+<h3 align="center">tramz</h3>
 
   <p align="center">
     Open source & containerised tool for easily uploading content to Instagram

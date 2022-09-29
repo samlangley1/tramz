@@ -3,12 +3,17 @@ from pathlib import Path
 from instabot import Bot
 from config import username, password, post_caption
 
-if __name__ == "__main__":
+
+def reset_config():
     try:
         shutil.rmtree("./config")
     except FileNotFoundError:
         pass
 
+
+
+def get_image():
+    global image_to_upload
     images = [x.name for x in Path("./images/").iterdir() if x.is_file()]
 
     image_to_upload = random.choice(images)
@@ -16,15 +21,10 @@ if __name__ == "__main__":
     if len(images) == 0:
         raise Exception("Please make sure your images directory contains image files")
 
-
-    bot = Bot()
-
-    bot.login(username = username,
-            password = password)
+    return image_to_upload
 
 
-    bot.upload_photo(f"./images/{image_to_upload}", caption=post_caption)
-
+def move_image_to_used():
     os.rename(f"./images/{image_to_upload}" + ".REMOVE_ME", f"./images/{image_to_upload}")
 
     generated_sku = ''.join(random.choice(string.ascii_letters) for i in range(10))
@@ -37,4 +37,19 @@ if __name__ == "__main__":
         os.makedirs(used_images_directory)
 
     shutil.move(f"./images/{image_to_upload}", f"{used_images_directory}{generated_sku}{file_extension[1]}")
+
+if __name__ == "__main__":
+    reset_config()
+
+    get_image()
+
+    bot = Bot()
+
+    bot.login(username = username,
+            password = password)
+
+
+    bot.upload_photo(f"./images/{image_to_upload}", caption=post_caption)
+
+    move_image_to_used()
 

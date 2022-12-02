@@ -132,6 +132,5 @@ dmypy.json
 
 # Instabot files
 config/*
-images/*
 config.py
 logs.txt

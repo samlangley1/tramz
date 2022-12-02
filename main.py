@@ -1,4 +1,4 @@
-import os, random, shutil, string, logging
+import os, random, shutil, string, logging, sys
 from pathlib import Path
 from instabot import Bot
 from config import username, password, post_caption
@@ -8,7 +8,7 @@ def reset_config():
     try:
         shutil.rmtree("./config")
     except FileNotFoundError:
-        pass
+        logging.info('No existing config folder was found.')
 
 
 
@@ -19,7 +19,8 @@ def get_image():
     image_to_upload = random.choice(images)
 
     if len(images) == 0:
-        raise Exception("Please make sure your images directory contains image files")
+        logging.error("No images were found in the images directory.")
+        sys.exit(1)
 
     return image_to_upload
 
@@ -39,6 +40,7 @@ def move_image_to_used():
     shutil.move(f"./images/{image_to_upload}", f"{used_images_directory}{generated_sku}{file_extension[1]}")
 
 if __name__ == "__main__":
+    logging.basicConfig(filename='logs.txt',filemode='a',format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s', level=logging.DEBUG)
     reset_config()
 
     get_image()

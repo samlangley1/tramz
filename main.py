@@ -1,4 +1,4 @@
-import os, random, shutil, string
+import os, random, shutil, string, logging
 from pathlib import Path
 from instabot import Bot
 from config import username, password, post_caption
@@ -49,7 +49,7 @@ if __name__ == "__main__":
             password = password)
 
 
-    bot.upload_photo(f"./images/{image_to_upload}", caption=post_caption)
+    bot.upload_photo(f"./images/{image_to_upload}", caption=random.choice(post_caption))
 
     move_image_to_used()
 

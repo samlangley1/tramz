@@ -131,6 +131,6 @@ dmypy.json
 
 
 # Instabot files
-.config/
-.images/*
+config/*
+images/*
 config.py

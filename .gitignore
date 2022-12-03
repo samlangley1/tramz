@@ -134,3 +134,4 @@ dmypy.json
 config/*
 config.py
 logs.txt
+images/used/*

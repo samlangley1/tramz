@@ -11,11 +11,18 @@ def reset_config():
         logging.info('No existing config folder was found.')
 
 
+def get_image_count():
+    image_count = len([x.name for x in Path("./images/").iterdir() if x.is_file()])
+    if 5 <= image_count <= 10:
+        return f"image folder is running low on images. Images remaining: {image_count}"
+    elif image_count < 5:
+        return f"images in image folder running critically low. Images remaining: {image_count}"
+
 
 def get_image():
     global image_to_upload
     images = [x.name for x in Path("./images/").iterdir() if x.is_file()]
-
+    logging.warning(f"{get_image_count()}")
     image_to_upload = random.choice(images)
 
     if len(images) == 0:
@@ -40,7 +47,7 @@ def move_image_to_used():
     shutil.move(f"./images/{image_to_upload}", f"{used_images_directory}{generated_sku}{file_extension[1]}")
 
 if __name__ == "__main__":
-    logging.basicConfig(filename='logs.txt',filemode='a',format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s', level=logging.DEBUG)
+    logging.basicConfig(filename='logs.txt',filemode='a',format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s', level=logging.WARNING)
     reset_config()
 
     get_image()
@@ -48,7 +55,7 @@ if __name__ == "__main__":
     bot = Bot()
 
     bot.login(username = username,
-            password = password)
+            password = password, ask_for_code = True)
 
 
     bot.upload_photo(f"./images/{image_to_upload}", caption=random.choice(post_caption))
